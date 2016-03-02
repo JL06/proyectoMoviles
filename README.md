@@ -1,3 +1,3 @@
 # proyectoMoviles
 Proyecto Moviles
-Difusionartec
+Eventos Tec
