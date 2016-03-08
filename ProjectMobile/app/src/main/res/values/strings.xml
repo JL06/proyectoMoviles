@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ProjectMobile</string>
+    <string name="app_name">EventosTec</string>
+    <color name="white">#FFFFFF</color>
 </resources>
