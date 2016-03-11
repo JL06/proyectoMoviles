@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">EventosTec</string>
+    <string name="facebook_app_id">791309764308056</string>
     <color name="white">#FFFFFF</color>
 </resources>
