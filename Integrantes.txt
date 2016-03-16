@@ -1,3 +1,9 @@
 Aquí se puede ver la lista de los integrantes:
 
+Juan Luis Hernandez López 
+Christian Solís Cortés
+Miguel Angel Balderas Rodríguez
+
 https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+https://developers.google.com/identity/sign-in/android/start-integrating#prerequisites
