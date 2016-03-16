@@ -18,6 +18,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        // Facebook activity for Login or share
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
+
+        // Facebook Content Provider for sharing links, images or video
+        <provider android:authorities="com.facebook.app.FacebookContentProvider791309764308056"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
+
         <activity android:name=".LoginActivity"></activity>
     </application>
 
