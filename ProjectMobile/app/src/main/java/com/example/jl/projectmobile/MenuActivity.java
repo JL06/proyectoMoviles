@@ -8,9 +8,21 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class MenuActivity extends AppCompatActivity {
 
     ListView list;
+    Integer[] ids = {
+            1,
+            2,
+            3,
+            4,
+            5,
+    };
+
     String[] eventos = {
             "Event 1",
             "Event 2",
@@ -49,20 +61,10 @@ public class MenuActivity extends AppCompatActivity {
             " ",
     };
 
-
-    String[] eventosFav = {
-            "Event 1",
-            "Event 3",
-            "Event 4",
-    };
-
-    String[] descripcionFav = {
-            "Description 1",
-            "Description 3",
-            "Description 4",
-    };
-
-
+    String[] titlesStr;
+    String[] descStr;
+    Integer[] imgsInt;
+    Integer[] idsInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MenuActivity.this, EventActivity.class);
+                intent.putExtra("id", ids[+position]);
                 intent.putExtra("img", imageId1[+position]);
                 intent.putExtra("event", eventos[+position]);
                 intent.putExtra("des", descripcion[+position]);
@@ -99,6 +102,7 @@ public class MenuActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(MenuActivity.this, EventActivity.class);
+                        intent.putExtra("id", ids[+position]);
                         intent.putExtra("img", imageId1[+position]);
                         intent.putExtra("event", eventos[+position]);
                         intent.putExtra("des", descripcion[+position]);
@@ -132,7 +136,36 @@ public class MenuActivity extends AppCompatActivity {
 
         btnFavorite.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                ListEvents adapter = new ListEvents(MenuActivity.this, eventosFav, imageId1, descripcionFav);
+                FavoritesDB MDB = new FavoritesDB(getApplicationContext());
+                List<Event> eventos = MDB.retrieveEvent();
+
+                ArrayList<Integer> favsids = new ArrayList<Integer>();
+                ArrayList<Integer> favsimgs = new ArrayList<Integer>();
+                ArrayList<String> favstitles = new ArrayList<String>();
+                ArrayList<String> favsdescriptions = new ArrayList<String>();
+
+                Iterator<Event> itr = eventos.iterator();
+                while (itr.hasNext()) {
+                    Event actual = itr.next();
+                    favsids.add(actual.getID());
+                    favsimgs.add(actual.getImage());
+                    favstitles.add(actual.getTitle());
+                    favsdescriptions.add(actual.getDescription());
+                }
+
+                titlesStr = new String[favstitles.size()];
+                titlesStr = favstitles.toArray(titlesStr);
+
+                descStr = new String[favsdescriptions.size()];
+                descStr = favsdescriptions.toArray(descStr);
+
+                imgsInt = new Integer[favsimgs.size()];
+                imgsInt = favsimgs.toArray(imgsInt);
+
+                idsInt = new Integer[favsids.size()];
+                idsInt = favsids.toArray(idsInt);
+
+                ListEvents adapter = new ListEvents(MenuActivity.this, titlesStr, imgsInt, descStr);
                 list = (ListView) findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
@@ -140,16 +173,15 @@ public class MenuActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(MenuActivity.this, EventActivity.class);
-                        intent.putExtra("img", imageId1[+position]);
-                        intent.putExtra("event", eventosFav[+position]);
-                        intent.putExtra("des", descripcionFav[+position]);
+                        intent.putExtra("id", idsInt[+position]);
+                        intent.putExtra("img", imgsInt[+position]);
+                        intent.putExtra("event", titlesStr[+position]);
+                        intent.putExtra("des", descStr[+position]);
                         intent.putExtra("fav", true);
                         startActivity(intent);
                     }
                 });
             }
         });
-
-
     }
 }

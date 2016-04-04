@@ -4,9 +4,16 @@ import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class EventActivity extends AppCompatActivity {
 
@@ -16,20 +23,46 @@ public class EventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
 
         Intent intent = getIntent();
-        String title = intent.getStringExtra("event");
-        String description = intent.getStringExtra("des");
-        Integer imageId = intent.getIntExtra("img", 0);
+        final Integer id = intent.getIntExtra("id", 0);
+        final String title = intent.getStringExtra("event");
+        final String description = intent.getStringExtra("des");
+        final Integer imageId = intent.getIntExtra("img", 0);
         Boolean favorite = intent.getBooleanExtra("fav", false);
 
         TextView titulo = (TextView) findViewById(R.id.txt_eventAct_lg);
         TextView descripcion = (TextView) findViewById(R.id.txt_eventAct_md);
         ImageView imagen = (ImageView) findViewById(R.id.img_eventAct);
-        Button btn = (Button) findViewById(R.id.btn_eventAct);
+        final Button btn = (Button) findViewById(R.id.btn_eventAct);
 
-        if (favorite) {
+        final FavoritesDB MDB = new FavoritesDB(getApplicationContext());
+        List<Event> eventos = MDB.retrieveEvent();
+
+        Boolean isFav = false;
+        ArrayList<String> list = new ArrayList<String>();
+        Iterator<Event> itr = eventos.iterator();
+        while (itr.hasNext()) {
+            if (itr.next().getID() == id) {
+                isFav = true;
+                break;
+            }
+        }
+
+        if (isFav) {
             btn.setText("Remove");
+            btn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    MDB.deleteEvent(id);
+                    btn.setVisibility(View.GONE);
+                }
+            });
         } else {
             btn.setText("Add Favorite");
+            btn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    MDB.insertEvent(id, title, imageId, description);
+                    btn.setVisibility(View.GONE);
+                }
+            });
         }
 
         titulo.setText(title);
