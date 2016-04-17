@@ -3,9 +3,14 @@ package com.example.jl.projectmobile;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -14,6 +19,7 @@ import java.util.List;
 
 public class MenuActivity extends AppCompatActivity {
 
+    private EditText editText;
     ListView list;
     Integer[] ids = {
             1,
@@ -70,6 +76,24 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        editText = (EditText)findViewById(R.id.et_menu);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                buscar(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         ListEvents adapter = new ListEvents(MenuActivity.this, eventos, imageId1, descripcion);
         list = (ListView)findViewById(R.id.listMenu);
@@ -183,5 +207,31 @@ public class MenuActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private void buscar(String s){
+        // Aquí estará la función de buscar, y desplegar, cuando los eventos se jalen correctamnete.
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id){
+            default:
+                break;
+            case R.id.settings:
+
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
