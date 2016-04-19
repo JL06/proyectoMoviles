@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MenuActivity" />
-        <activity android:name=".EventActivity"></activity>
+        <activity android:name=".EventActivity" />
+        <activity android:name=".CategoryEvents"></activity>
     </application>
 
 </manifest>
