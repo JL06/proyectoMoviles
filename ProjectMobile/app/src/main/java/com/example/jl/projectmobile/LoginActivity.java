@@ -19,7 +19,6 @@ import com.facebook.login.widget.LoginButton;
 import com.facebook.FacebookSdk;
 
 public class LoginActivity extends Activity {
-
         CallbackManager callbackManager;
 
         @Override
