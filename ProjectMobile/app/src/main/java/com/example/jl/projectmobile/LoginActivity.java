@@ -1,6 +1,8 @@
 package com.example.jl.projectmobile;
+
 import android.app.Activity;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import com.facebook.FacebookException;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.FacebookSdk;
 
 public class LoginActivity extends Activity {
 
@@ -23,6 +26,7 @@ public class LoginActivity extends Activity {
         protected void onCreate(Bundle savedInstanceState) {
 
             super.onCreate(savedInstanceState);
+            FacebookSdk.sdkInitialize(getApplicationContext());
             setContentView(R.layout.activity_login);
 
             LoginButton loginButton;
@@ -38,7 +42,11 @@ public class LoginActivity extends Activity {
 
                 @Override
                 public void onSuccess(LoginResult loginResult) {
-                    // App code
+
+                    // Redirigir a MenuActivity una vez que hace login correctamente
+                    Intent mainIntent = new Intent("com.example.jl.projectmobile.MenuActivity");
+                    LoginActivity.this.startActivity(mainIntent);
+                    LoginActivity.this.finish();
                 }
                 @Override
                 public void onCancel() {
