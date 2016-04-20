@@ -19,10 +19,7 @@ import java.util.List;
 
 public class MenuActivity extends AppCompatActivity {
 
-<<<<<<< HEAD
     //info de todos los eventos
-=======
->>>>>>> 196bace15726a19996aeb42be8969105e1e5517f
     private EditText editText;
     ListView list;
         //su propio id
