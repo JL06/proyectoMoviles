@@ -27,7 +27,6 @@ public class EventActivity extends AppCompatActivity {
         final String title = intent.getStringExtra("event");
         final String description = intent.getStringExtra("des");
         final Integer imageId = intent.getIntExtra("img", 0);
-        Boolean favorite = intent.getBooleanExtra("fav", false);
 
         TextView titulo = (TextView) findViewById(R.id.txt_eventAct_lg);
         TextView descripcion = (TextView) findViewById(R.id.txt_eventAct_md);
