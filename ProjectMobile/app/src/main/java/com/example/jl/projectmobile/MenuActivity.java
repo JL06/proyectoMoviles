@@ -1,6 +1,7 @@
 package com.example.jl.projectmobile;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -42,7 +43,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //Titulo del evento
     String[] eventos = {
-            "Event 1",
+            "Lorem ipsum dolor sit amet, consectetur",
             "Event 2",
             "Event 3",
             "Event 4",
@@ -51,16 +52,32 @@ public class MenuActivity extends AppCompatActivity {
 
         //descripcion del evento
     String[] descripcion = {
-            "Description 1",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             "Description 2",
             "Description 3",
             "Description 4",
             "Description 5",
     };
 
+    String[] fecha = {
+            "11/06/2016",
+            "21/07/2016",
+            "21/07/2016",
+            "21/07/2016",
+            "21/07/2016",
+    };
+
+    String[] lugar = {
+            "Gimnasio ITESM",
+            "Auditorio ITESM",
+            "Auditorio ITESM",
+            "Auditorio ITESM",
+            "Auditorio ITESM",
+    };
+
         //id de imagen del evento
     Integer[] imageId1 = {
-            R.drawable.img,
+            R.drawable.fondo,
             R.drawable.img,
             R.drawable.img,
             R.drawable.img,
@@ -93,12 +110,16 @@ public class MenuActivity extends AppCompatActivity {
     //Arreglos para categorias
     String[] titlesCat;
     String[] descCat;
+    String[] dateCat;
+    String[] placeCat;
 
     //Arreglos para favoritos
     String[] titlesStr;
     String[] descStr;
     Integer[] imgsInt;
     Integer[] idsInt;
+    String[] dateStr;
+    String[] placeStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +127,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         editText = (EditText)findViewById(R.id.et_menu);
+        editText.getBackground().setColorFilter(getResources().getColor(R.color.com_facebook_blue), PorterDuff.Mode.SRC_ATOP);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -135,6 +157,8 @@ public class MenuActivity extends AppCompatActivity {
                 intent.putExtra("img", imageId1[+position]);
                 intent.putExtra("event", eventos[+position]);
                 intent.putExtra("des", descripcion[+position]);
+                intent.putExtra("fecha", fecha[+position]);
+                intent.putExtra("lugar", lugar[+position]);
                 startActivity(intent);
             }
         });
@@ -157,6 +181,8 @@ public class MenuActivity extends AppCompatActivity {
                         intent.putExtra("img", imageId1[+position]);
                         intent.putExtra("event", eventos[+position]);
                         intent.putExtra("des", descripcion[+position]);
+                        intent.putExtra("fecha", fecha[+position]);
+                        intent.putExtra("lugar", lugar[+position]);
                         startActivity(intent);
                     }
                 });
@@ -182,7 +208,10 @@ public class MenuActivity extends AppCompatActivity {
                         ArrayList<Integer> catimgs = new ArrayList<Integer>();
                         ArrayList<String> cattitles = new ArrayList<String>();
                         ArrayList<String> catdescriptions = new ArrayList<String>();
+                        ArrayList<String> catDates = new ArrayList<String>();
+                        ArrayList<String> catPlaces = new ArrayList<String>();
 
+                        //categoria Seleccionada
                         Integer idAct = idCat[+position];
                         //Obtener todos los eventos de esta categoria
                         int pos = 0;
@@ -192,6 +221,8 @@ public class MenuActivity extends AppCompatActivity {
                                 catimgs.add(imageId1[+pos]);
                                 cattitles.add(eventos[+pos]);
                                 catdescriptions.add(descripcion[+pos]);
+                                catDates.add(fecha[+pos]);
+                                catPlaces.add(lugar[+pos]);
                             }
                             pos++;
                         }
@@ -202,11 +233,19 @@ public class MenuActivity extends AppCompatActivity {
                         descCat = new String[catdescriptions.size()];
                         descCat = catdescriptions.toArray(descCat);
 
+                        dateCat = new String[catDates.size()];
+                        dateCat = catDates.toArray(dateCat);
+
+                        placeCat = new String[catPlaces.size()];
+                        placeCat = catPlaces.toArray(placeCat);
+
                         Intent intent = new Intent(MenuActivity.this, CategoryEvents.class);
                         intent.putExtra("ids", catids);
                         intent.putExtra("imgs", catimgs);
                         intent.putExtra("events", titlesCat);
                         intent.putExtra("des", descCat);
+                        intent.putExtra("dates", dateCat);
+                        intent.putExtra("places", placeCat);
                         startActivity(intent);
                     }
                 });
@@ -226,6 +265,8 @@ public class MenuActivity extends AppCompatActivity {
                 ArrayList<Integer> favsimgs = new ArrayList<Integer>();
                 ArrayList<String> favstitles = new ArrayList<String>();
                 ArrayList<String> favsdescriptions = new ArrayList<String>();
+                ArrayList<String> favsDates = new ArrayList<String>();
+                ArrayList<String> favsPlaces = new ArrayList<String>();
 
                 Iterator<Event> itr = eventos.iterator();
                 while (itr.hasNext()) {
@@ -234,6 +275,8 @@ public class MenuActivity extends AppCompatActivity {
                     favsimgs.add(actual.getImage());
                     favstitles.add(actual.getTitle());
                     favsdescriptions.add(actual.getDescription());
+                    favsDates.add(actual.getDate());
+                    favsPlaces.add(actual.getPlace());
                 }
 
                 titlesStr = new String[favstitles.size()];
@@ -241,6 +284,12 @@ public class MenuActivity extends AppCompatActivity {
 
                 descStr = new String[favsdescriptions.size()];
                 descStr = favsdescriptions.toArray(descStr);
+
+                dateStr = new String[favsDates.size()];
+                dateStr = favsDates.toArray(dateStr);
+
+                placeStr = new String[favsPlaces.size()];
+                placeStr = favsPlaces.toArray(placeStr);
 
                 imgsInt = new Integer[favsimgs.size()];
                 imgsInt = favsimgs.toArray(imgsInt);
@@ -260,6 +309,8 @@ public class MenuActivity extends AppCompatActivity {
                         intent.putExtra("img", imgsInt[+position]);
                         intent.putExtra("event", titlesStr[+position]);
                         intent.putExtra("des", descStr[+position]);
+                        intent.putExtra("fecha", dateStr[+position]);
+                        intent.putExtra("lugar", placeStr[+position]);
                         startActivity(intent);
                     }
                 });

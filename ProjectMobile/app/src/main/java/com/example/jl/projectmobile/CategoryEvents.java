@@ -24,6 +24,8 @@ public class CategoryEvents extends AppCompatActivity {
         final String[] titles = intent.getStringArrayExtra("events");
         final String[] descriptions = intent.getStringArrayExtra("des");
         final ArrayList<Integer> imageIdsAr = intent.getIntegerArrayListExtra("imgs");
+        final String[] dates = intent.getStringArrayExtra("dates");
+        final String[] places = intent.getStringArrayExtra("places");
 
         ids = new Integer[idsAr.size()];
         ids = idsAr.toArray(ids);
@@ -43,6 +45,8 @@ public class CategoryEvents extends AppCompatActivity {
                 intent.putExtra("img", imgIds[+position]);
                 intent.putExtra("event", titles[+position]);
                 intent.putExtra("des", descriptions[+position]);
+                intent.putExtra("fecha", dates[+position]);
+                intent.putExtra("lugar", places[+position]);
                 startActivity(intent);
             }
         });
