@@ -27,9 +27,13 @@ public class EventActivity extends AppCompatActivity {
         final String title = intent.getStringExtra("event");
         final String description = intent.getStringExtra("des");
         final Integer imageId = intent.getIntExtra("img", 0);
+        final String fecha = intent.getStringExtra("fecha");
+        final String lugar = intent.getStringExtra("lugar");
 
         TextView titulo = (TextView) findViewById(R.id.txt_eventAct_lg);
         TextView descripcion = (TextView) findViewById(R.id.txt_eventAct_md);
+        TextView TVfecha = (TextView) findViewById(R.id.txt_eventAct_fecha);
+        TextView TVlugar = (TextView) findViewById(R.id.txt_eventAct_lugar);
         ImageView imagen = (ImageView) findViewById(R.id.img_eventAct);
         final Button btn = (Button) findViewById(R.id.btn_eventAct);
 
@@ -58,7 +62,7 @@ public class EventActivity extends AppCompatActivity {
             btn.setText("Add Favorite");
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    MDB.insertEvent(id, title, imageId, description);
+                    MDB.insertEvent(id, title, imageId, description, fecha, lugar);
                     btn.setVisibility(View.GONE);
                 }
             });
@@ -67,5 +71,7 @@ public class EventActivity extends AppCompatActivity {
         titulo.setText(title);
         descripcion.setText(description);
         imagen.setImageResource(imageId);
+        TVfecha.setText(fecha);
+        TVlugar.setText(lugar);
     }
 }

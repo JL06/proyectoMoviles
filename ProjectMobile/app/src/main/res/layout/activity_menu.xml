@@ -12,6 +12,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textCursorDrawable="@null"
         android:id="@+id/et_menu" />
 
     <LinearLayout
@@ -39,20 +40,29 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Events"
-                android:id="@+id/btn_events" />
+                android:id="@+id/btn_events"
+                android:backgroundTint="#0039a6"
+                android:textColor="#ffffff" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Categories"
-                android:id="@+id/btn_cat" />
+                android:id="@+id/btn_cat"
+                android:backgroundTint="#0039a6"
+                android:textColor="#ffffff" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Favorites"
-                android:id="@+id/btn_fav" />
+                android:id="@+id/btn_fav"
+                android:backgroundTint="#0039a6"
+                android:textColor="#ffffff" />
         </LinearLayout>
 
     </LinearLayout>
