@@ -24,7 +24,7 @@ public class SplashActivity extends Activity {
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
                 // Cambie MenuActivity.class por LoginActivity.class
-                Intent mainIntent = new Intent(SplashActivity.this, MenuActivity.class);
+                Intent mainIntent = new Intent(SplashActivity.this, LoginActivity.class);
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }

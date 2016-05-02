@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.FacebookSdk;
+
+
 
 public class LoginActivity extends Activity {
         CallbackManager callbackManager;
@@ -42,11 +45,13 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
 
+                    Log.e("algo", "algo algo");
                     // Redirigir a MenuActivity una vez que hace login correctamente
-                    Intent mainIntent = new Intent("com.example.jl.projectmobile.MenuActivity");
+                    Intent mainIntent = new Intent(LoginActivity.this, MenuActivity.class);
                     LoginActivity.this.startActivity(mainIntent);
                     LoginActivity.this.finish();
                 }
+
                 @Override
                 public void onCancel() {
                     // App code
