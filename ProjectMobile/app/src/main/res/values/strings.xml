@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">EventosTec</string>
-    <string name="facebook_app_id">869377803173574re</string>
+    <string name="facebook_app_id">869377803173574</string>
     <color name="white">#FFFFFF</color>
 
     <string name="settings">Configuración</string>
