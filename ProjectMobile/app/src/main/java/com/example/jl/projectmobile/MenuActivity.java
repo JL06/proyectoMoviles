@@ -14,6 +14,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -107,6 +116,8 @@ public class MenuActivity extends AppCompatActivity {
             " ",
     };
 
+    JSONObject jsonDifusionArTec;
+
     //Arreglos para categorias
     String[] titlesCat;
     String[] descCat;
@@ -125,6 +136,8 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        getEvents();
 
         editText = (EditText)findViewById(R.id.et_menu);
         editText.getBackground().setColorFilter(getResources().getColor(R.color.com_facebook_blue), PorterDuff.Mode.SRC_ATOP);
@@ -145,7 +158,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        ListEvents adapter = new ListEvents(MenuActivity.this, eventos, imageId1, descripcion);
+        ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion);
         list = (ListView)findViewById(R.id.listMenu);
         list.setAdapter(adapter);
 
@@ -169,7 +182,7 @@ public class MenuActivity extends AppCompatActivity {
 
         btnEvents.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                ListEvents adapter = new ListEvents(MenuActivity.this, eventos, imageId1, descripcion);
+                ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion);
                 list = (ListView) findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
@@ -195,7 +208,7 @@ public class MenuActivity extends AppCompatActivity {
 
         btnCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                ListEvents adapter = new ListEvents(MenuActivity.this, categorias, imageId1, vacio);
+                ListEvents adapter = new ListEvents(MenuActivity.this, categorias, vacio);
                 list = (ListView)findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
@@ -297,7 +310,7 @@ public class MenuActivity extends AppCompatActivity {
                 idsInt = new Integer[favsids.size()];
                 idsInt = favsids.toArray(idsInt);
 
-                ListEvents adapter = new ListEvents(MenuActivity.this, titlesStr, imgsInt, descStr);
+                ListEvents adapter = new ListEvents(MenuActivity.this, titlesStr, descStr);
                 list = (ListView) findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
@@ -317,6 +330,56 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void getEvents() {
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/327390470624805/events",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        jsonDifusionArTec = response.getJSONObject();
+                        System.out.println("Hola " + jsonDifusionArTec);
+                        try {
+                            JSONArray data = jsonDifusionArTec.getJSONArray("data");
+
+                            //hacerlas globales
+                            List<String> eventosList = new ArrayList<String>();
+                            List<String> descripcionList = new ArrayList<String>();
+                            for (int i = 0; i < data.length(); i++){
+                                JSONObject evento = data.getJSONObject(i);
+                                String name = evento.getString("name");
+                                String descripcion = evento.getString("description");
+
+                                System.out.println("Name = " + name);
+
+                                //System.out.println("Descripcion = " + descripcion);
+                                eventosList.add(name);
+                                descripcionList.add(descripcion);
+                            }
+
+
+
+                            // mandar llamar en events 2 porque es lo ultimoq ue se ejecuta
+
+                            eventos = eventosList.toArray(new String[eventosList.size()]);
+                            descripcion = descripcionList.toArray(new String[descripcionList.size()]);
+
+                            ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion);
+                            list = (ListView) findViewById(R.id.listMenu);
+                            list.setAdapter(adapter);
+                            //lamar events2
+                        }
+                        catch (JSONException e) {
+
+                        }
+                    }
+                }
+        ).executeAsync();
+    }
+
+    // Events 2
 
     private void buscar(String s){
         // Aquí estará la función de buscar, y desplegar, cuando los eventos se jalen correctamnete.

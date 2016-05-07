@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.Window;
 import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
 
 public class SplashActivity extends Activity {
     /** Duration of wait **/
@@ -30,4 +31,13 @@ public class SplashActivity extends Activity {
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
+
+        /*
+    public void onSuccess(LoginResult loginResult) {
+            String userLoginId = loginResult.getAccessToken().getUserId();
+            Intent facebookIntent = new Intent(SplashActivity.this, MenuActivity.class);
+        }
+    }
+    */
+
 }

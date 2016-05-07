@@ -55,7 +55,7 @@ public class LoginActivity extends FragmentActivity {
                 facebookIntent.putExtra(PROFILE_LAST_NAME, lastName);
                 facebookIntent.putExtra(PROFILE_IMAGE_URL, profileImageUrl);
                 startActivity(facebookIntent);
-                Log.e("A huevo", " Perro");
+                Log.e("Prueba", " Sí funciona el login");
             }
             @Override
             public void onCancel() {

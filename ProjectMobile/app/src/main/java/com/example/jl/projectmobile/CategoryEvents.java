@@ -33,7 +33,7 @@ public class CategoryEvents extends AppCompatActivity {
         imgIds = new Integer[imageIdsAr.size()];
         imgIds = imageIdsAr.toArray(imgIds);
 
-        ListEvents adapter = new ListEvents(CategoryEvents.this, titles, imgIds, descriptions);
+        ListEvents adapter = new ListEvents(CategoryEvents.this, titles, descriptions);
         ListView list = (ListView) findViewById(R.id.listCategoryEvents);
         list.setAdapter(adapter);
 
