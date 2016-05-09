@@ -3,6 +3,7 @@ package com.example.jl.projectmobile;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +16,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.facebook.AccessToken;
@@ -31,36 +31,33 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 
 public class MenuActivity extends AppCompatActivity {
 
 
-
+    List<Double> eventosidList = new ArrayList<Double>();
     List<String> eventosList = new ArrayList<String>();
     List<String> descripcionList = new ArrayList<String>();
     List<Integer> idcatEventList = new ArrayList<Integer>();
+    List<String> fechaList = new ArrayList<String>();
+    List<String> lugarList = new ArrayList<String>();
 
     //info de todos los eventos
     private EditText editText;
     ListView list;
         //su propio id
-    Integer[] ids = {
-            1,
-            2,
-            3,
-            4,
-            5,
+    Double[] ids = {
+            1.0,
+            2.0,
+            3.0,
+            4.0,
+            5.0,
     };
 
         //id de la categoria a la que perteneces
     Integer[] idCatEvent = {
-            1,
-            2,
-            3,
-            1,
-            2,
+
     };
 
         //Titulo del evento
@@ -74,19 +71,11 @@ public class MenuActivity extends AppCompatActivity {
     };
 
     String[] fecha = {
-            "11/06/2016",
-            "21/07/2016",
-            "21/07/2016",
-            "21/07/2016",
-            "21/07/2016",
+
     };
 
     String[] lugar = {
-            "Gimnasio ITESM",
-            "Auditorio ITESM",
-            "Auditorio ITESM",
-            "Auditorio ITESM",
-            "Auditorio ITESM",
+
     };
 
         /*
@@ -113,12 +102,9 @@ public class MenuActivity extends AppCompatActivity {
     };
 
         //descripcion de la categoria
-    String[] vacio = {
-            " ",
-            " ",
-            " ",
-            " ",
-            " ",
+    String[] descripcionCat = {
+            "Eventos Culturales",
+            "Eventos Deportivos",
     };
 
     JSONObject jsonDifusionArTec;
@@ -129,6 +115,7 @@ public class MenuActivity extends AppCompatActivity {
     String[] descCat;
     String[] dateCat;
     String[] placeCat;
+    double[] idsCat;
 
     //Arreglos para favoritos
     String[] titlesStr;
@@ -220,7 +207,7 @@ public class MenuActivity extends AppCompatActivity {
         btnCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 ListEvents adapter = new ListEvents(MenuActivity.this, categorias //, imageId1
-                        , vacio);
+                        , descripcionCat);
                 list = (ListView)findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
@@ -229,7 +216,7 @@ public class MenuActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         System.out.println("Click Cat!!!");
 
-                        ArrayList<Integer> catids = new ArrayList<Integer>();
+                        ArrayList<Double> catids = new ArrayList<Double>();
                         ArrayList<Integer> catimgs = new ArrayList<Integer>();
                         ArrayList<String> cattitles = new ArrayList<String>();
                         ArrayList<String> catdescriptions = new ArrayList<String>();
@@ -264,8 +251,18 @@ public class MenuActivity extends AppCompatActivity {
                         placeCat = new String[catPlaces.size()];
                         placeCat = catPlaces.toArray(placeCat);
 
+                        Double[] idsCatO = new Double[catids.size()];
+                        idsCatO = catids.toArray(idsCatO);
+
+                        idsCat = new double[idsCatO.length];
+                        int posi = 0;
+                        for (Double it : idsCatO) {
+                            idsCat[posi] = it.doubleValue();
+                            posi++;
+                        }
+
                         Intent intent = new Intent(MenuActivity.this, CategoryEvents.class);
-                        intent.putExtra("ids", catids);
+                        intent.putExtra("ids", idsCat);
                         intent.putExtra("imgs", catimgs);
                         intent.putExtra("events", titlesCat);
                         intent.putExtra("des", descCat);
@@ -363,8 +360,13 @@ public class MenuActivity extends AppCompatActivity {
                             for (int i = 0; i < data.length(); i++){
                                 JSONObject evento = data.getJSONObject(i);
 
+                                String idStrEve = evento.getString("id");
                                 String name = evento.getString("name");
                                 String descripcion = evento.getString("description");
+                                String fecha = evento.getString("start_time");
+
+                                JSONObject lugarObj = evento.getJSONObject("place");
+                                String lugar = lugarObj.getString("name");
 
                                 //ImageView icon=(ImageView)findViewById(R.id.icon);
 
@@ -374,9 +376,14 @@ public class MenuActivity extends AppCompatActivity {
                                 System.out.println("Name = " + name);
 
                                 //System.out.println("Descripcion = " + descripcion);
+
+
+                                eventosidList.add(Double.parseDouble(idStrEve));
                                 eventosList.add(name);
                                 descripcionList.add(descripcion);
                                 idcatEventList.add(1);
+                                fechaList.add(fecha);
+                                lugarList.add(lugar);
 
                             }
 
@@ -424,16 +431,24 @@ public class MenuActivity extends AppCompatActivity {
 
                             for (int i = 0; i < data.length(); i++){
                                 JSONObject evento = data.getJSONObject(i);
-                                String name = evento.getString("name");
 
-                                String descripcion = name;
+                                String idStrEve = evento.getString("id");
+                                String name = evento.getString("name");
+                                String descripcion = evento.getString("description");
+                                String fecha = evento.getString("start_time");
+
+                                JSONObject lugarObj = evento.getJSONObject("place");
+                                String lugar = lugarObj.getString("name");
 
                                 System.out.println("Name = " + name);
 
                                 //System.out.println("Descripcion = " + descripcion);
+                                eventosidList.add(Double.parseDouble(idStrEve));
                                 eventosList.add(name);
                                 descripcionList.add(descripcion);
                                 idcatEventList.add(2);
+                                fechaList.add(fecha);
+                                lugarList.add(lugar);
                             }
 
 
@@ -449,6 +464,9 @@ public class MenuActivity extends AppCompatActivity {
                         eventos = eventosList.toArray(new String[eventosList.size()]);
                         descripcion = descripcionList.toArray(new String[descripcionList.size()]);
                         idCatEvent = idcatEventList.toArray(new Integer[idcatEventList.size()]);
+                        fecha = fechaList.toArray(new String[fechaList.size()]);
+                        lugar = lugarList.toArray(new String[lugarList.size()]);
+                        ids = eventosidList.toArray(new Double[eventosidList.size()]);
 
                         ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion);
                         MenuActivity.this.list = (ListView) findViewById(R.id.listMenu);

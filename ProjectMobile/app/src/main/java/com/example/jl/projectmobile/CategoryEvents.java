@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class CategoryEvents extends AppCompatActivity {
 
-    Integer[] ids;
+    double[] ids;
     Integer[] imgIds;
 
     @Override
@@ -20,15 +20,15 @@ public class CategoryEvents extends AppCompatActivity {
         setContentView(R.layout.activity_category_events);
 
         Intent intent = getIntent();
-        final ArrayList<Integer> idsAr = intent.getIntegerArrayListExtra("ids");
+        final double[] idsAr = intent.getDoubleArrayExtra("ids");
         final String[] titles = intent.getStringArrayExtra("events");
         final String[] descriptions = intent.getStringArrayExtra("des");
         final ArrayList<Integer> imageIdsAr = intent.getIntegerArrayListExtra("imgs");
         final String[] dates = intent.getStringArrayExtra("dates");
         final String[] places = intent.getStringArrayExtra("places");
 
-        ids = new Integer[idsAr.size()];
-        ids = idsAr.toArray(ids);
+        //ids = new Integer[idsAr.size()];
+        ids = idsAr;
 
         imgIds = new Integer[imageIdsAr.size()];
         imgIds = imageIdsAr.toArray(imgIds);

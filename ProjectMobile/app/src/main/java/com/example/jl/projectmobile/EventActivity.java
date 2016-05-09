@@ -23,7 +23,7 @@ public class EventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
 
         Intent intent = getIntent();
-        final Integer id = intent.getIntExtra("id", 0);
+        final double id = intent.getDoubleExtra("id", 0);
         final String title = intent.getStringExtra("event");
         final String description = intent.getStringExtra("des");
         final Integer imageId = intent.getIntExtra("img", 0);
@@ -54,7 +54,7 @@ public class EventActivity extends AppCompatActivity {
             btn.setText("Remove");
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    MDB.deleteEvent(id);
+                    MDB.deleteEvent((int) id);
                     btn.setVisibility(View.GONE);
                 }
             });
@@ -62,7 +62,7 @@ public class EventActivity extends AppCompatActivity {
             btn.setText("Add Favorite");
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    MDB.insertEvent(id, title, imageId, description, fecha, lugar);
+                    MDB.insertEvent((int) id, title, imageId, description, fecha, lugar);
                     btn.setVisibility(View.GONE);
                 }
             });
