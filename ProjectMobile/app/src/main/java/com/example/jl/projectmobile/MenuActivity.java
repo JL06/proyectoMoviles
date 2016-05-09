@@ -425,11 +425,23 @@ public class MenuActivity extends AppCompatActivity {
 
                                 String idStrEve = evento.getString("id");
                                 String name = evento.getString("name");
-                                String descripcion = evento.getString("description");
+                                String descripcion; // = evento.getString("description");
+                                try {
+                                    descripcion = evento.getString("description");
+                                } catch (JSONException e) {
+                                    descripcion = "";
+                                }
                                 String fecha = evento.getString("start_time");
+                                String lugar;
+                                try {
+                                    JSONObject lugarObj = evento.getJSONObject("place");
+                                    lugar  = lugarObj.getString("name");
+                                } catch (JSONException e) {
+                                    lugar = "";
+                                }
 
-                                JSONObject lugarObj = evento.getJSONObject("place");
-                                String lugar = lugarObj.getString("name");
+
+
 
                                 System.out.println("Name = " + name);
 
@@ -449,7 +461,7 @@ public class MenuActivity extends AppCompatActivity {
 
                         }
                         catch (JSONException e) {
-
+                            e.getMessage();
                         }
 
                         eventos = eventosList.toArray(new String[eventosList.size()]);

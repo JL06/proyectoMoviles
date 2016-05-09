@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">EventosTec</string>
     <string name="facebook_app_id">869377803173574</string>
-    <color name="white">#FFFFFF</color>
+    <color name="white">#0c2d72</color>
 
     <string name="settings">Logout</string>
 

@@ -67,7 +67,7 @@ public class FavoritesDB extends SQLiteOpenHelper {
 
         c.moveToFirst();
         do {
-            Event anEvent = new Event(c.getDouble(0), c.getString(1), c.getString(3), c.getString(4), c.getString(5));
+            Event anEvent = new Event(c.getDouble(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4));
             event_list.add(anEvent);
         } while (c.moveToNext());
         db.close();
