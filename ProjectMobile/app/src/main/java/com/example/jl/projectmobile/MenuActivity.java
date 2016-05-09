@@ -340,7 +340,7 @@ public class MenuActivity extends AppCompatActivity {
                     posi++;
                 }
 
-                ListEvents adapter = new ListEvents(MenuActivity.this, titlesStr, descStr, imagesId);
+                ListEvents adapter = new ListEvents(MenuActivity.this, titlesStr, descStr, imgsInt);
                 list = (ListView) findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
