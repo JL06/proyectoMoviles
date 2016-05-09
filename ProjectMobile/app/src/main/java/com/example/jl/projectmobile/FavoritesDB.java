@@ -16,7 +16,7 @@ public class FavoritesDB extends SQLiteOpenHelper {
 
     private static final int DB_VERSION = 3;
     private static final String DB_NAME = "favoritesdb.db";
-    private static final String EVENTS_TABLE_CREATE_SCRIPT = "CREATE TABLE event (_id INT PRIMARY KEY, title TEXT, description TEXT, date TEXT, place TEXT)";
+    private static final String EVENTS_TABLE_CREATE_SCRIPT = "CREATE TABLE event (_id DOUBLE PRIMARY KEY, title TEXT, description TEXT, date TEXT, place TEXT)";
 
     public FavoritesDB(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -33,7 +33,7 @@ public class FavoritesDB extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertEvent(int id, String arg_title, String arg_des, String arg_dat, String arg_pla) {
+    public void insertEvent(double id, String arg_title, String arg_des, String arg_dat, String arg_pla) {
         SQLiteDatabase db = getWritableDatabase();
         if (db != null) {
             ContentValues values = new ContentValues();
@@ -47,7 +47,7 @@ public class FavoritesDB extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteEvent(int id) {
+    public void deleteEvent(double id) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete("event", "_id=" + id, null);
         db.close();
@@ -67,7 +67,7 @@ public class FavoritesDB extends SQLiteOpenHelper {
 
         c.moveToFirst();
         do {
-            Event anEvent = new Event(c.getInt(0), c.getString(1), c.getString(3), c.getString(4), c.getString(5));
+            Event anEvent = new Event(c.getDouble(0), c.getString(1), c.getString(3), c.getString(4), c.getString(5));
             event_list.add(anEvent);
         } while (c.moveToNext());
         db.close();

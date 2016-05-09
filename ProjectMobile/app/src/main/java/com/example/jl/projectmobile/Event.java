@@ -5,13 +5,13 @@ package com.example.jl.projectmobile;
  */
 public class Event {
 
-    private int id;
+    private double id;
     private String title;
     private String description;
     private String date;
     private String place;
 
-    public Event(int id, String title_arg, String description_arg, String date_arg, String place_arg) {
+    public Event(double id, String title_arg, String description_arg, String date_arg, String place_arg) {
         this.id = id;
         this.title = title_arg;
         this.description = description_arg;
@@ -19,11 +19,11 @@ public class Event {
         this.place = place_arg;
     }
 
-    public int getID() {
+    public double getID() {
         return id;
     }
 
-    public void setID(int id) {
+    public void setID(double id) {
         this.id = id;
     }
 

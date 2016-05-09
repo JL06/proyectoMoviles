@@ -269,7 +269,7 @@ public class MenuActivity extends AppCompatActivity {
                 FavoritesDB MDB = new FavoritesDB(getApplicationContext());
                 List<Event> eventos = MDB.retrieveEvent();
 
-                ArrayList<Integer> favsids = new ArrayList<Integer>();
+                ArrayList<Double> favsids = new ArrayList<Double>();
                 ArrayList<String> favstitles = new ArrayList<String>();
                 ArrayList<String> favsdescriptions = new ArrayList<String>();
                 ArrayList<String> favsDates = new ArrayList<String>();
@@ -297,8 +297,19 @@ public class MenuActivity extends AppCompatActivity {
                 placeStr = new String[favsPlaces.size()];
                 placeStr = favsPlaces.toArray(placeStr);
 
-                idsInt = new Integer[favsids.size()];
-                idsInt = favsids.toArray(idsInt);
+                //idsInt = new Integer[favsids.size()];
+                //idsInt = favsids.toArray(idsInt);
+
+
+                Double[] idsO = new Double[favsids.size()];
+                idsO = favsids.toArray(idsO);
+
+                idsCat = new double[idsO.length];
+                int posi = 0;
+                for (Double it : idsO) {
+                    idsCat[posi] = it.doubleValue();
+                    posi++;
+                }
 
                 ListEvents adapter = new ListEvents(MenuActivity.this, titlesStr, descStr);
                 list = (ListView) findViewById(R.id.listMenu);
@@ -308,7 +319,7 @@ public class MenuActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(MenuActivity.this, EventActivity.class);
-                        intent.putExtra("id", idsInt[+position]);
+                        intent.putExtra("id", idsCat[+position]);
                         intent.putExtra("event", titlesStr[+position]);
                         intent.putExtra("des", descStr[+position]);
                         intent.putExtra("fecha", dateStr[+position]);

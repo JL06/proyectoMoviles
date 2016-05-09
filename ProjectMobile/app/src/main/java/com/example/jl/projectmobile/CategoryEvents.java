@@ -30,6 +30,7 @@ public class CategoryEvents extends AppCompatActivity {
         //ids = new Integer[idsAr.size()];
         ids = idsAr;
 
+
        // imgIds = new Integer[imageIdsAr.size()];
         //imgIds = imageIdsAr.toArray(imgIds);
 
