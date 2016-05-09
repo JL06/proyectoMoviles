@@ -13,6 +13,10 @@ public class CategoryEvents extends AppCompatActivity {
 
     double[] ids;
     Integer[] imgIds;
+    Integer[] imgs = {
+            R.drawable.formacioncultural,
+            R.drawable.deportes
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,7 @@ public class CategoryEvents extends AppCompatActivity {
         imgIds = new Integer[imageIdsAr.size()];
         imgIds = imageIdsAr.toArray(imgIds);
 
-        ListEvents adapter = new ListEvents(CategoryEvents.this, titles, descriptions, imgIds);
+        ListEvents adapter = new ListEvents(CategoryEvents.this, titles, descriptions, imgs);
         ListView list = (ListView) findViewById(R.id.listCategoryEvents);
         list.setAdapter(adapter);
 
