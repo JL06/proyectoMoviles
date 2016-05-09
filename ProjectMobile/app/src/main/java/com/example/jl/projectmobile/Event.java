@@ -7,15 +7,13 @@ public class Event {
 
     private int id;
     private String title;
-    private int image;
     private String description;
     private String date;
     private String place;
 
-    public Event(int id, String title_arg, int img_arg, String description_arg, String date_arg, String place_arg) {
+    public Event(int id, String title_arg, String description_arg, String date_arg, String place_arg) {
         this.id = id;
         this.title = title_arg;
-        this.image = img_arg;
         this.description = description_arg;
         this.date = date_arg;
         this.place = place_arg;
@@ -36,16 +34,6 @@ public class Event {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-
-    public int getImage() {
-        // get image
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
     }
 
 
