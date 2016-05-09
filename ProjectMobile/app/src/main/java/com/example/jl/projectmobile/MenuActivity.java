@@ -42,6 +42,10 @@ public class MenuActivity extends AppCompatActivity {
     List<Integer> idcatEventList = new ArrayList<Integer>();
     List<String> fechaList = new ArrayList<String>();
     List<String> lugarList = new ArrayList<String>();
+    List<Integer> imageIdList = new ArrayList<Integer>();
+
+    Integer imgCultural = R.drawable.formacioncultural;
+    Integer imgDeportes = R.drawable.deportes;
 
     //info de todos los eventos
     private EditText editText;
@@ -76,6 +80,14 @@ public class MenuActivity extends AppCompatActivity {
 
     String[] lugar = {
 
+    };
+
+    Integer[] imagesId = {
+            imgCultural,
+            imgCultural,
+            imgCultural,
+            imgCultural,
+            imgCultural
     };
 
 
@@ -145,7 +157,7 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         ListEvents adapter = new ListEvents(MenuActivity.this, eventos //,imageId1
-                , descripcion);
+                , descripcion, imagesId);
         list = (ListView)findViewById(R.id.listMenu);
         list.setAdapter(adapter);
 
@@ -169,7 +181,7 @@ public class MenuActivity extends AppCompatActivity {
         btnEvents.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 ListEvents adapter = new ListEvents(MenuActivity.this, eventos //, imageId1
-                         , descripcion);
+                         , descripcion, imagesId);
                 list = (ListView) findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
@@ -195,7 +207,7 @@ public class MenuActivity extends AppCompatActivity {
         btnCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 ListEvents adapter = new ListEvents(MenuActivity.this, categorias //, imageId1
-                        , descripcionCat);
+                        , descripcionCat, imagesId);
                 list = (ListView)findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
@@ -311,7 +323,7 @@ public class MenuActivity extends AppCompatActivity {
                     posi++;
                 }
 
-                ListEvents adapter = new ListEvents(MenuActivity.this, titlesStr, descStr);
+                ListEvents adapter = new ListEvents(MenuActivity.this, titlesStr, descStr, imagesId);
                 list = (ListView) findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
@@ -375,6 +387,7 @@ public class MenuActivity extends AppCompatActivity {
                                 idcatEventList.add(1);
                                 fechaList.add(fecha);
                                 lugarList.add(lugar);
+                                imageIdList.add(imgCultural);
 
                             }
 
@@ -396,7 +409,8 @@ public class MenuActivity extends AppCompatActivity {
 
                         }
                         catch (JSONException e) {
-
+                            e.toString();
+                            e.getMessage();
                         }
                         getEvents2();
                     }
@@ -452,6 +466,7 @@ public class MenuActivity extends AppCompatActivity {
                                 idcatEventList.add(2);
                                 fechaList.add(fecha);
                                 lugarList.add(lugar);
+                                imageIdList.add(imgDeportes);
                             }
 
 
@@ -470,8 +485,9 @@ public class MenuActivity extends AppCompatActivity {
                         fecha = fechaList.toArray(new String[fechaList.size()]);
                         lugar = lugarList.toArray(new String[lugarList.size()]);
                         ids = eventosidList.toArray(new Double[eventosidList.size()]);
+                        imagesId = imageIdList.toArray(new Integer[imageIdList.size()]);
 
-                        ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion);
+                        ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion, imagesId);
                         MenuActivity.this.list = (ListView) findViewById(R.id.listMenu);
                         MenuActivity.this.list.setAdapter(adapter);
                     }
