@@ -54,7 +54,7 @@ public class EventActivity extends AppCompatActivity {
             btn.setText("Remove");
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    MDB.deleteEvent((int) id);
+                    MDB.deleteEvent(id);
                     btn.setVisibility(View.GONE);
                 }
             });
@@ -62,7 +62,7 @@ public class EventActivity extends AppCompatActivity {
             btn.setText("Add Favorite");
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    MDB.insertEvent((int) id, title, description, fecha, lugar, imageId);
+                    MDB.insertEvent(id, title, description, fecha, lugar, imageId);
                     btn.setVisibility(View.GONE);
                 }
             });
