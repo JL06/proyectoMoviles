@@ -70,7 +70,7 @@ public class EventActivity extends AppCompatActivity {
 
         titulo.setText(title);
         descripcion.setText(description);
-        //imagen.setImageResource(imageId);
+        imagen.setImageResource(imageId);
         TVfecha.setText(fecha);
         TVlugar.setText(lugar);
     }
