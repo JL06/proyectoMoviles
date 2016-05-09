@@ -217,6 +217,7 @@ public class MenuActivity extends AppCompatActivity {
                         System.out.println("Click Cat!!!");
 
                         ArrayList<Double> catids = new ArrayList<Double>();
+                        ArrayList<Integer> catimgs = new ArrayList<Integer>();
                         ArrayList<String> cattitles = new ArrayList<String>();
                         ArrayList<String> catdescriptions = new ArrayList<String>();
                         ArrayList<String> catDates = new ArrayList<String>();
@@ -229,7 +230,7 @@ public class MenuActivity extends AppCompatActivity {
                         for (int item : idCatEvent) {
                             if (item == idAct) {
                                 catids.add(ids[+pos]);
-                                //catimgs.add(imageId1[+pos]);
+                                catimgs.add(imagesId[+pos]);
                                 cattitles.add(eventos[+pos]);
                                 catdescriptions.add(descripcion[+pos]);
                                 catDates.add(fecha[+pos]);
@@ -262,6 +263,7 @@ public class MenuActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(MenuActivity.this, CategoryEvents.class);
                         intent.putExtra("ids", idsCat);
+                        intent.putExtra("imgs", catimgs);
                         intent.putExtra("events", titlesCat);
                         intent.putExtra("des", descCat);
                         intent.putExtra("dates", dateCat);
