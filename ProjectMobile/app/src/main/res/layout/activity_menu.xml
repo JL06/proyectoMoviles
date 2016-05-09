@@ -17,7 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textCursorDrawable="@null"
-        android:id="@+id/et_menu" />
+        android:id="@+id/et_menu"
+        android:textColorHighlight="@color/white"
+        android:paddingTop="0mm"
+        android:editable="false"/>
 
     <LinearLayout
         android:layout_below="@id/et_menu"
