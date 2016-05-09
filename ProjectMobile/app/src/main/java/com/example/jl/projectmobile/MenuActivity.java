@@ -47,6 +47,11 @@ public class MenuActivity extends AppCompatActivity {
     Integer imgCultural = R.drawable.formacioncultural;
     Integer imgDeportes = R.drawable.deportes;
 
+    Integer[] imgs = {
+            R.drawable.formacioncultural,
+            R.drawable.deportes
+    };
+
     //info de todos los eventos
     private EditText editText;
     ListView list;
@@ -210,7 +215,7 @@ public class MenuActivity extends AppCompatActivity {
         btnCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 ListEvents adapter = new ListEvents(MenuActivity.this, categorias //, imageId1
-                        , descripcionCat, imagesId);
+                        , descripcionCat, imgs);
                 list = (ListView)findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
