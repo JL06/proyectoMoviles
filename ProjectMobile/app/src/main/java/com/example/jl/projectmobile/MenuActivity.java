@@ -123,6 +123,7 @@ public class MenuActivity extends AppCompatActivity {
     //Arreglos para favoritos
     String[] titlesStr;
     String[] descStr;
+    Integer[] imgsInt;
     Integer[] idsInt;
     String[] dateStr;
     String[] placeStr;
@@ -167,6 +168,7 @@ public class MenuActivity extends AppCompatActivity {
                 Intent intent = new Intent(MenuActivity.this, EventActivity.class);
                 intent.putExtra("id", ids[+position]);
                 intent.putExtra("event", eventos[+position]);
+                intent.putExtra("img", imagesId[+position]);
                 intent.putExtra("des", descripcion[+position]);
                 intent.putExtra("fecha", fecha[+position]);
                 intent.putExtra("lugar", lugar[+position]);
@@ -191,6 +193,7 @@ public class MenuActivity extends AppCompatActivity {
                         Intent intent = new Intent(MenuActivity.this, EventActivity.class);
                         intent.putExtra("id", ids[+position]);
                         intent.putExtra("event", eventos[+position]);
+                        intent.putExtra("img", imagesId[+position]);
                         intent.putExtra("des", descripcion[+position]);
                         intent.putExtra("fecha", fecha[+position]);
                         intent.putExtra("lugar", lugar[+position]);
@@ -284,6 +287,7 @@ public class MenuActivity extends AppCompatActivity {
                 List<Event> eventos = MDB.retrieveEvent();
 
                 ArrayList<Double> favsids = new ArrayList<Double>();
+                ArrayList<Integer> favsimgs = new ArrayList<Integer>();
                 ArrayList<String> favstitles = new ArrayList<String>();
                 ArrayList<String> favsdescriptions = new ArrayList<String>();
                 ArrayList<String> favsDates = new ArrayList<String>();
@@ -293,6 +297,7 @@ public class MenuActivity extends AppCompatActivity {
                 while (itr.hasNext()) {
                     Event actual = itr.next();
                     favsids.add(actual.getID());
+                    favsimgs.add(actual.getImage());
                     favstitles.add(actual.getTitle());
                     favsdescriptions.add(actual.getDescription());
                     favsDates.add(actual.getDate());
@@ -310,6 +315,9 @@ public class MenuActivity extends AppCompatActivity {
 
                 placeStr = new String[favsPlaces.size()];
                 placeStr = favsPlaces.toArray(placeStr);
+
+                imgsInt = new Integer[favsimgs.size()];
+                imgsInt = favsimgs.toArray(imgsInt);
 
                 //idsInt = new Integer[favsids.size()];
                 //idsInt = favsids.toArray(idsInt);
@@ -334,6 +342,7 @@ public class MenuActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(MenuActivity.this, EventActivity.class);
                         intent.putExtra("id", idsCat[+position]);
+                        intent.putExtra("img", imgsInt[+position]);
                         intent.putExtra("event", titlesStr[+position]);
                         intent.putExtra("des", descStr[+position]);
                         intent.putExtra("fecha", dateStr[+position]);

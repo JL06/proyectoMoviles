@@ -25,6 +25,7 @@ public class EventActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final double id = intent.getDoubleExtra("id", 0);
         final String title = intent.getStringExtra("event");
+        final Integer imageId = intent.getIntExtra("img", 0);
         final String description = intent.getStringExtra("des");
         final String fecha = intent.getStringExtra("fecha");
         final String lugar = intent.getStringExtra("lugar");
@@ -61,7 +62,7 @@ public class EventActivity extends AppCompatActivity {
             btn.setText("Add Favorite");
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    MDB.insertEvent((int) id, title, description, fecha, lugar);
+                    MDB.insertEvent((int) id, title, description, fecha, lugar, imageId);
                     btn.setVisibility(View.GONE);
                 }
             });

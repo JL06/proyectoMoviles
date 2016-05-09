@@ -14,9 +14,9 @@ import java.util.List;
  */
 public class FavoritesDB extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 4;
     private static final String DB_NAME = "favoritesdb.db";
-    private static final String EVENTS_TABLE_CREATE_SCRIPT = "CREATE TABLE event (_id DOUBLE PRIMARY KEY, title TEXT, description TEXT, date TEXT, place TEXT)";
+    private static final String EVENTS_TABLE_CREATE_SCRIPT = "CREATE TABLE event (_id DOUBLE PRIMARY KEY, title TEXT, description TEXT, date TEXT, place TEXT, image INT)";
 
     public FavoritesDB(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -33,7 +33,7 @@ public class FavoritesDB extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertEvent(double id, String arg_title, String arg_des, String arg_dat, String arg_pla) {
+    public void insertEvent(double id, String arg_title, String arg_des, String arg_dat, String arg_pla, int arg_img) {
         SQLiteDatabase db = getWritableDatabase();
         if (db != null) {
             ContentValues values = new ContentValues();
@@ -42,6 +42,7 @@ public class FavoritesDB extends SQLiteOpenHelper {
             values.put("description", arg_des);
             values.put("date", arg_dat);
             values.put("place", arg_pla);
+            values.put("image", arg_img);
             db.insert("event", null, values);
         }
         db.close();
@@ -58,7 +59,7 @@ public class FavoritesDB extends SQLiteOpenHelper {
 
         List<Event> event_list = new ArrayList<Event>();
 
-        String[] selected_columns = {"_id", "title", "description, date, place"};
+        String[] selected_columns = {"_id", "title", "description, date, place, image"};
         Cursor c = db.query("event", selected_columns, null, null, null, null, null, null);
 
         if (c.getCount() < 1) {
@@ -67,7 +68,7 @@ public class FavoritesDB extends SQLiteOpenHelper {
 
         c.moveToFirst();
         do {
-            Event anEvent = new Event(c.getDouble(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4));
+            Event anEvent = new Event(c.getDouble(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getInt(5));
             event_list.add(anEvent);
         } while (c.moveToNext());
         db.close();

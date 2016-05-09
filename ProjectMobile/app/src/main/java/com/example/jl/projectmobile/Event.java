@@ -10,14 +10,21 @@ public class Event {
     private String description;
     private String date;
     private String place;
+    private int image;
 
-    public Event(double id, String title_arg, String description_arg, String date_arg, String place_arg) {
+    public Event(double id, String title_arg, String description_arg, String date_arg, String place_arg, int img_arg) {
         this.id = id;
         this.title = title_arg;
         this.description = description_arg;
         this.date = date_arg;
         this.place = place_arg;
+        this.image = img_arg;
     }
+
+    public  int getImage() { return  image; }
+
+    public  void setImage(int img) { this.image = img; }
+
 
     public double getID() {
         return id;
