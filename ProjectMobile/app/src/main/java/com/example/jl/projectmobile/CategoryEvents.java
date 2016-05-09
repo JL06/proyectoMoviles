@@ -30,8 +30,8 @@ public class CategoryEvents extends AppCompatActivity {
         //ids = new Integer[idsAr.size()];
         ids = idsAr;
 
-        imgIds = new Integer[imageIdsAr.size()];
-        imgIds = imageIdsAr.toArray(imgIds);
+       // imgIds = new Integer[imageIdsAr.size()];
+        //imgIds = imageIdsAr.toArray(imgIds);
 
         ListEvents adapter = new ListEvents(CategoryEvents.this, titles, descriptions);
         ListView list = (ListView) findViewById(R.id.listCategoryEvents);
@@ -42,7 +42,7 @@ public class CategoryEvents extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(CategoryEvents.this, EventActivity.class);
                 intent.putExtra("id", ids[+position]);
-                intent.putExtra("img", imgIds[+position]);
+                //intent.putExtra("img", imgIds[+position]);
                 intent.putExtra("event", titles[+position]);
                 intent.putExtra("des", descriptions[+position]);
                 intent.putExtra("fecha", dates[+position]);
