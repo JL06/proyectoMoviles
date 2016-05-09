@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 
 public class MenuActivity extends AppCompatActivity {
@@ -39,6 +40,7 @@ public class MenuActivity extends AppCompatActivity {
 
     List<String> eventosList = new ArrayList<String>();
     List<String> descripcionList = new ArrayList<String>();
+    List<Integer> idcatEventList = new ArrayList<Integer>();
 
     //info de todos los eventos
     private EditText editText;
@@ -108,7 +110,6 @@ public class MenuActivity extends AppCompatActivity {
     Integer[] idCat = {
             1,
             2,
-            3,
     };
 
         //descripcion de la categoria
@@ -136,6 +137,7 @@ public class MenuActivity extends AppCompatActivity {
     Integer[] idsInt;
     String[] dateStr;
     String[] placeStr;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -374,6 +376,7 @@ public class MenuActivity extends AppCompatActivity {
                                 //System.out.println("Descripcion = " + descripcion);
                                 eventosList.add(name);
                                 descripcionList.add(descripcion);
+                                idcatEventList.add(1);
 
                             }
 
@@ -430,6 +433,7 @@ public class MenuActivity extends AppCompatActivity {
                                 //System.out.println("Descripcion = " + descripcion);
                                 eventosList.add(name);
                                 descripcionList.add(descripcion);
+                                idcatEventList.add(2);
                             }
 
 
@@ -444,6 +448,7 @@ public class MenuActivity extends AppCompatActivity {
 
                         eventos = eventosList.toArray(new String[eventosList.size()]);
                         descripcion = descripcionList.toArray(new String[descripcionList.size()]);
+                        idCatEvent = idcatEventList.toArray(new Integer[idcatEventList.size()]);
 
                         ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion);
                         MenuActivity.this.list = (ListView) findViewById(R.id.listMenu);
