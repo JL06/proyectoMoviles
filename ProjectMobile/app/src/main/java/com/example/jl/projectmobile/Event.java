@@ -40,6 +40,7 @@ public class Event {
 
 
     public int getImage() {
+        // get image
         return image;
     }
 

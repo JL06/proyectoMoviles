@@ -3,6 +3,6 @@
     <string name="facebook_app_id">869377803173574</string>
     <color name="white">#FFFFFF</color>
 
-    <string name="settings">Configuración</string>
+    <string name="settings">Logout</string>
 
 </resources>

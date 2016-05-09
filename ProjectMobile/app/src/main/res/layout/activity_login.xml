@@ -38,7 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="10"
             android:background="@android:color/transparent"
-            android:text="Login as a Guest"/>
+            android:text="Login as a Guest"
+            android:textColor="#ffffff" />
 
     </LinearLayout>
 

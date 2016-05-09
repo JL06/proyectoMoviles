@@ -1,7 +1,9 @@
 package com.example.jl.projectmobile;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,12 +11,14 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
@@ -27,7 +31,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 public class MenuActivity extends AppCompatActivity {
+
+
+
+    List<String> eventosList = new ArrayList<String>();
+    List<String> descripcionList = new ArrayList<String>();
 
     //info de todos los eventos
     private EditText editText;
@@ -84,6 +94,7 @@ public class MenuActivity extends AppCompatActivity {
             "Auditorio ITESM",
     };
 
+        /*
         //id de imagen del evento
     Integer[] imageId1 = {
             R.drawable.fondo,
@@ -91,8 +102,9 @@ public class MenuActivity extends AppCompatActivity {
             R.drawable.img,
             R.drawable.img,
             R.drawable.img,
-    };
 
+    };
+*/
     //Info por categoria
     String[] categorias = {
             "Category 1",
@@ -117,6 +129,7 @@ public class MenuActivity extends AppCompatActivity {
     };
 
     JSONObject jsonDifusionArTec;
+    JSONObject jsonSportId;
 
     //Arreglos para categorias
     String[] titlesCat;
@@ -135,7 +148,9 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_menu);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         getEvents();
 
@@ -150,7 +165,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 buscar(s.toString());
-            }
+        }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -158,7 +173,8 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion);
+        ListEvents adapter = new ListEvents(MenuActivity.this, eventos //,imageId1
+                , descripcion);
         list = (ListView)findViewById(R.id.listMenu);
         list.setAdapter(adapter);
 
@@ -167,7 +183,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MenuActivity.this, EventActivity.class);
                 intent.putExtra("id", ids[+position]);
-                intent.putExtra("img", imageId1[+position]);
+                //intent.putExtra("img", imageId1[+position]);
                 intent.putExtra("event", eventos[+position]);
                 intent.putExtra("des", descripcion[+position]);
                 intent.putExtra("fecha", fecha[+position]);
@@ -182,7 +198,8 @@ public class MenuActivity extends AppCompatActivity {
 
         btnEvents.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion);
+                ListEvents adapter = new ListEvents(MenuActivity.this, eventos //, imageId1
+                         , descripcion);
                 list = (ListView) findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
@@ -191,7 +208,7 @@ public class MenuActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(MenuActivity.this, EventActivity.class);
                         intent.putExtra("id", ids[+position]);
-                        intent.putExtra("img", imageId1[+position]);
+                       // intent.putExtra("img", imageId1[+position]);
                         intent.putExtra("event", eventos[+position]);
                         intent.putExtra("des", descripcion[+position]);
                         intent.putExtra("fecha", fecha[+position]);
@@ -208,7 +225,8 @@ public class MenuActivity extends AppCompatActivity {
 
         btnCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                ListEvents adapter = new ListEvents(MenuActivity.this, categorias, vacio);
+                ListEvents adapter = new ListEvents(MenuActivity.this, categorias //, imageId1
+                        , vacio);
                 list = (ListView)findViewById(R.id.listMenu);
                 list.setAdapter(adapter);
 
@@ -231,7 +249,7 @@ public class MenuActivity extends AppCompatActivity {
                         for (int item : idCatEvent) {
                             if (item == idAct) {
                                 catids.add(ids[+pos]);
-                                catimgs.add(imageId1[+pos]);
+                                //catimgs.add(imageId1[+pos]);
                                 cattitles.add(eventos[+pos]);
                                 catdescriptions.add(descripcion[+pos]);
                                 catDates.add(fecha[+pos]);
@@ -332,6 +350,10 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void getEvents() {
+
+
+
+
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
                 "/327390470624805/events",
@@ -344,13 +366,67 @@ public class MenuActivity extends AppCompatActivity {
                         try {
                             JSONArray data = jsonDifusionArTec.getJSONArray("data");
 
-                            //hacerlas globales
-                            List<String> eventosList = new ArrayList<String>();
-                            List<String> descripcionList = new ArrayList<String>();
+
+
                             for (int i = 0; i < data.length(); i++){
                                 JSONObject evento = data.getJSONObject(i);
                                 String name = evento.getString("name");
                                 String descripcion = evento.getString("description");
+
+                                System.out.println("Name = " + name);
+
+                                //System.out.println("Descripcion = " + descripcion);
+                                eventosList.add(name);
+                                descripcionList.add(descripcion);
+
+                            }
+
+                            //IMAGEN?????
+
+                            // mandar llamar en events 2 porque es lo ultimoq ue se ejecuta
+
+                            /*
+                            eventos = eventosList.toArray(new String[eventosList.size()]);
+                            descripcion = descripcionList.toArray(new String[descripcionList.size()]);
+
+                            ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion);
+                            list = (ListView) findViewById(R.id.listMenu);
+                            list.setAdapter(adapter);
+
+*/
+                            //lamar events2
+
+
+                        }
+                        catch (JSONException e) {
+
+                        }
+                        getEvents2();
+                    }
+                }
+        ).executeAsync();
+    }
+
+    public void getEvents2() {
+
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/182874473110/events",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        jsonSportId = response.getJSONObject();
+                        System.out.println("Hola " + jsonSportId);
+                        try {
+                            JSONArray data = jsonSportId.getJSONArray("data");
+
+
+
+                            for (int i = 0; i < data.length(); i++){
+                                JSONObject evento = data.getJSONObject(i);
+                                String name = evento.getString("name");
+                                String descripcion = name;
 
                                 System.out.println("Name = " + name);
 
@@ -363,23 +439,22 @@ public class MenuActivity extends AppCompatActivity {
 
                             // mandar llamar en events 2 porque es lo ultimoq ue se ejecuta
 
-                            eventos = eventosList.toArray(new String[eventosList.size()]);
-                            descripcion = descripcionList.toArray(new String[descripcionList.size()]);
 
-                            ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion);
-                            list = (ListView) findViewById(R.id.listMenu);
-                            list.setAdapter(adapter);
-                            //lamar events2
                         }
                         catch (JSONException e) {
 
                         }
+
+                        eventos = eventosList.toArray(new String[eventosList.size()]);
+                        descripcion = descripcionList.toArray(new String[descripcionList.size()]);
+
+                        ListEvents adapter = new ListEvents(MenuActivity.this, eventos, descripcion);
+                        MenuActivity.this.list = (ListView) findViewById(R.id.listMenu);
+                        MenuActivity.this.list.setAdapter(adapter);
                     }
                 }
         ).executeAsync();
     }
-
-    // Events 2
 
     private void buscar(String s){
         // Aquí estará la función de buscar, y desplegar, cuando los eventos se jalen correctamnete.
@@ -406,4 +481,17 @@ public class MenuActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        System.exit(0);
+                    }
+                }).setNegativeButton("No", null).show();
+    }
+
 }

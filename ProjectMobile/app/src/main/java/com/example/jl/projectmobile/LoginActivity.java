@@ -2,7 +2,10 @@ package com.example.jl.projectmobile;
 
 import android.app.Activity;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,11 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jl.projectmobile.R;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookActivity;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.FacebookSdk;
@@ -28,15 +33,12 @@ import com.facebook.Profile;
 public class LoginActivity extends FragmentActivity {
 
     CallbackManager mCallbackManager;
-    public static final String PROFILE_USER_ID = "USER_ID";
-    public static final String PROFILE_FIRST_NAME = "PROFILE_FIRST_NAME";
-    public static final String PROFILE_LAST_NAME = "PROFILE_LAST_NAME";
-    public static final String PROFILE_IMAGE_URL = "PROFILE_IMAGE_URL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_login);
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton mLoginButton = (LoginButton)findViewById(R.id.login_button);
@@ -49,11 +51,8 @@ public class LoginActivity extends FragmentActivity {
                 String firstName = mProfile.getFirstName();
                 String lastName = mProfile.getLastName();
                 String userId = mProfile.getId().toString();
-                String profileImageUrl = mProfile.getProfilePictureUri(96, 96).toString();
-                facebookIntent.putExtra(PROFILE_USER_ID, userId);
-                facebookIntent.putExtra(PROFILE_FIRST_NAME, firstName);
-                facebookIntent.putExtra(PROFILE_LAST_NAME, lastName);
-                facebookIntent.putExtra(PROFILE_IMAGE_URL, profileImageUrl);
+
+                login();
                 startActivity(facebookIntent);
                 Log.e("Prueba", " Sí funciona el login");
             }
@@ -65,10 +64,31 @@ public class LoginActivity extends FragmentActivity {
             }
         });
     }
+
+
+
+    public void login() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("logged", true);
+        editor.apply();
+    }
+
+    public void logout() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("logged", false);
+        editor.apply();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
+
+       // Intent facebookIntent = new Intent(LoginActivity.this, MenuActivity.class);
+
+        //startActivity(facebookIntent);
     }
     @Override
     protected void onResume() {
