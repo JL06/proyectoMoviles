@@ -44,6 +44,8 @@ public class MenuActivity extends AppCompatActivity {
     List<String> lugarList = new ArrayList<String>();
     List<Integer> imageIdList = new ArrayList<Integer>();
 
+    Double numId = 0.0;
+
     Integer imgCultural = R.drawable.formacioncultural;
     Integer imgDeportes = R.drawable.deportes;
 
@@ -375,7 +377,7 @@ public class MenuActivity extends AppCompatActivity {
                             JSONArray data = jsonDifusionArTec.getJSONArray("data");
 
 
-
+                            numId = 0.0;
                             for (int i = 0; i < data.length(); i++){
                                 JSONObject evento = data.getJSONObject(i);
 
@@ -397,14 +399,14 @@ public class MenuActivity extends AppCompatActivity {
                                 //System.out.println("Descripcion = " + descripcion);
 
 
-                                eventosidList.add(Double.parseDouble(idStrEve));
+                                eventosidList.add(numId);
                                 eventosList.add(name);
                                 descripcionList.add(descripcion);
                                 idcatEventList.add(1);
                                 fechaList.add(fecha);
                                 lugarList.add(lugar);
                                 imageIdList.add(imgCultural);
-
+                                numId++;
                             }
 
                             //IMAGEN?????
@@ -476,13 +478,14 @@ public class MenuActivity extends AppCompatActivity {
                                 System.out.println("Name = " + name);
 
                                 //System.out.println("Descripcion = " + descripcion);
-                                eventosidList.add(Double.parseDouble(idStrEve));
+                                eventosidList.add(numId);
                                 eventosList.add(name);
                                 descripcionList.add(descripcion);
                                 idcatEventList.add(2);
                                 fechaList.add(fecha);
                                 lugarList.add(lugar);
                                 imageIdList.add(imgDeportes);
+                                numId++;
                             }
 
 
