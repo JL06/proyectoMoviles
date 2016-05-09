@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.facebook.AccessToken;
@@ -62,20 +63,12 @@ public class MenuActivity extends AppCompatActivity {
 
         //Titulo del evento
     String[] eventos = {
-            "Lorem ipsum dolor sit amet, consectetur",
-            "Event 2",
-            "Event 3",
-            "Event 4",
-            "Event 5",
+
     };
 
         //descripcion del evento
     String[] descripcion = {
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "Description 2",
-            "Description 3",
-            "Description 4",
-            "Description 5",
+
     };
 
     String[] fecha = {
@@ -107,9 +100,8 @@ public class MenuActivity extends AppCompatActivity {
 */
     //Info por categoria
     String[] categorias = {
-            "Category 1",
-            "Category 2",
-            "Category 3",
+            "Formación Cultural",
+            "Deportes"
     };
 
         //id de la categoria
@@ -352,8 +344,6 @@ public class MenuActivity extends AppCompatActivity {
     public void getEvents() {
 
 
-
-
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
                 "/327390470624805/events",
@@ -370,8 +360,14 @@ public class MenuActivity extends AppCompatActivity {
 
                             for (int i = 0; i < data.length(); i++){
                                 JSONObject evento = data.getJSONObject(i);
+
                                 String name = evento.getString("name");
                                 String descripcion = evento.getString("description");
+
+                                //ImageView icon=(ImageView)findViewById(R.id.icon);
+
+                                //icon.setImageResource(R.drawable.formacionCultural);
+
 
                                 System.out.println("Name = " + name);
 
@@ -426,6 +422,7 @@ public class MenuActivity extends AppCompatActivity {
                             for (int i = 0; i < data.length(); i++){
                                 JSONObject evento = data.getJSONObject(i);
                                 String name = evento.getString("name");
+
                                 String descripcion = name;
 
                                 System.out.println("Name = " + name);
