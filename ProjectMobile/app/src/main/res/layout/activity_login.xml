@@ -35,7 +35,10 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/"/>
+            android:src="@drawable/deportes"
+            android:layout_weight="10"/>
+
+        <!--
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,6 +46,7 @@
             android:background="@android:color/transparent"
             android:text="Login as a Guest"
             android:textColor="#ffffff" />
+        -->
 
     </LinearLayout>
 
