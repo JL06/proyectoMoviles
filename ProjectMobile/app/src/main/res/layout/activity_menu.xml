@@ -11,31 +11,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.jl.projectmobile.MenuActivity">
 
-    <EditText
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textCursorDrawable="@null"
-        android:id="@+id/et_menu"
-        android:textColorHighlight="@color/white"
-        android:paddingTop="0mm"
-        android:editable="false"/>
-
     <LinearLayout
-        android:layout_below="@id/et_menu"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="381dp"
             android:id="@+id/listMenu"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1.24" />
+            android:layout_weight="1.01" />
 
         <LinearLayout
             android:orientation="horizontal"

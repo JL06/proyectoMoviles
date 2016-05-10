@@ -145,9 +145,9 @@ public class MenuActivity extends AppCompatActivity {
 
         getEvents();
 
-        editText = (EditText)findViewById(R.id.et_menu);
-        editText.getBackground().setColorFilter(getResources().getColor(R.color.com_facebook_blue), PorterDuff.Mode.SRC_ATOP);
-        editText.addTextChangedListener(new TextWatcher() {
+        /*editText = (EditText)findViewById(R.id.et_menu);
+        //editText.getBackground().setColorFilter(getResources().getColor(R.color.com_facebook_blue), PorterDuff.Mode.SRC_ATOP);
+        //editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -163,7 +163,7 @@ public class MenuActivity extends AppCompatActivity {
 
             }
         });
-
+*/
         ListEvents adapter = new ListEvents(MenuActivity.this, eventos //,imageId1
                 , descripcion, imagesId);
         list = (ListView)findViewById(R.id.listMenu);

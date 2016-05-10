@@ -32,7 +32,7 @@
                 android:maxLength="45"
                 android:maxLines="2"
                 android:maxWidth="270dp"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:paddingLeft="3dip"
                 android:paddingRight="3dip"
                 android:gravity="center" />
